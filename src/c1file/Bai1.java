@@ -14,9 +14,20 @@ public class Bai1 {
         }
         return file.delete();
     }
-    public void findAllByExts(String path, String... exts){
-       File file = new File(path);
-       File[] listFile = file.listFiles();
+    public void findAllByExts(String path, String... exts) {
+        File file = new File(path);
+        File[] listFile = file.listFiles();
+        if (listFile == null) return;
 
+        for (File f : listFile) {
+            if (f.isDirectory()) {
+                findAllByExts(f.getAbsolutePath(), exts);
+            }
+            for (String ext : exts) {
+                if (f.getName().endsWith("." + ext)) {
+                    System.out.println(f.getAbsolutePath());
+                }
+            }
+        }
     }
-}
+    }
